@@ -1,0 +1,71 @@
+{
+  "ticket_status": {
+    "elementType": "input",
+    "elementConfig": {
+      "type": "text",
+      "label": "Ticket Status *",
+      "placeholder": "Enter Status",
+      "defaultValue": "",
+      "helperText": "",
+      "variant": "outlined",
+      "margin": "dense"
+    },
+    "inputAdornment": {},
+    "value": "",
+    "validation": {
+      "required": true
+    },
+    "valid": false,
+    "touched": false
+  },
+  "ticket_status_acronym": {
+    "elementType": "input",
+    "elementConfig": {
+      "type": "text",
+      "helperText": "",
+      "label": "Ticket Status Acronym",
+      "variant": "outlined",
+      "placeholder": "Enter Status Acronym",
+      "margin": "dense"
+    },
+    "inputAdornment": {},
+    "value": "",
+    "validation": {
+      "required": true
+    },
+    "valid": false,
+    "touched": false
+  },
+  "description": {
+    "elementType": "textarea",
+    "elementConfig": {
+      "type": "text",
+      "label": "Description",
+      "helperText": "",
+      "variant": "outlined",
+      "margin": "dense"
+    },
+    "value": "",
+    "validation": {
+      "required": true
+    },
+    "valid": false,
+    "touched": false
+  },
+  "status_color": {
+    "elementType": "input",
+    "elementConfig": {
+      "type": "color",
+      "label": "Status Color",
+      "helperText": "",
+      "variant": "outlined",
+      "margin": "normal"
+    },
+    "value": "",
+    "validation": {
+      "required": true
+    },
+    "valid": false,
+    "touched": false
+  }
+}
