@@ -9,6 +9,9 @@ import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import Typography from "@material-ui/core/Typography";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import Tooltip from "@material-ui/core/Tooltip";
+import NotificationsIcon from "@material-ui/icons/Notifications";
+
 const InputBuilder = props => {
   let inputElement = null;
   let startAdornment = null;
@@ -21,9 +24,11 @@ const InputBuilder = props => {
       </InputAdornment>
     ) : null;
     endAdornment = props.inputAdornment.endAdornment ? (
-      <InputAdornment position={props.inputAdornment.endAdornment.position}>
-        {props.inputAdornment.endAdornment.value}
-      </InputAdornment>
+      <Tooltip title="Hii ">
+        <InputAdornment position={props.inputAdornment.endAdornment.position}>
+          <NotificationsIcon />
+        </InputAdornment>
+      </Tooltip>
     ) : null;
   }
   switch (props.elementType) {

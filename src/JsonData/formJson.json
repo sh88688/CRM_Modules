@@ -28,7 +28,12 @@
       "placeholder": "Enter Status Acronym",
       "margin": "dense"
     },
-    "inputAdornment": {},
+    "inputAdornment": {
+      "endAdornment": {
+        "position": "start",
+        "value": "?"
+      }
+    },
     "value": "",
     "validation": {
       "required": true
