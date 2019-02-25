@@ -28,6 +28,8 @@ import DesktopWindows from "@material-ui/icons/DesktopWindows";
 import Typography from "@material-ui/core/Typography";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import FormRender from "./FormRender";
+import jsonData from "./JsonData/formJson";
+import stateData from "./JsonData/ticketStatus";
 
 const drawerWidth = 240;
 
@@ -117,6 +119,7 @@ const styles = theme => ({
 
 class MiniDrawer extends React.Component {
   state = {
+    clickSection: "ticketStatus",
     open: false,
     open_master: false,
     open_mail: false,
@@ -142,13 +145,14 @@ class MiniDrawer extends React.Component {
 
   masterClick = () => {
     this.setState({ open_master: !this.state.open_master, open: true });
-    console.log("click ", this.state.open_master);
   };
   mailClick = () => {
     this.setState({ open_mail: !this.state.open_mail, open: true });
-    console.log("click ", this.state.open_mail);
   };
-
+  handleFormChange = section => {
+    this.setState({ clickSection: section });
+    console.log("delivery details");
+  };
   handleDrawerOpen = () => {
     this.setState({ open: true });
   };
@@ -162,6 +166,7 @@ class MiniDrawer extends React.Component {
     const { classes, theme } = this.props;
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
     const renderMenu = (
       <Menu
         anchorEl={anchorEl}
@@ -308,7 +313,11 @@ class MiniDrawer extends React.Component {
             </ListItem>
             <Collapse in={this.state.open_master} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <ListItem button className={classes.nested}>
+                <ListItem
+                  button
+                  onClick={this.handleFormChange}
+                  className={classes.nested}
+                >
                   <ListItemText inset primary="City" />
                 </ListItem>
                 <ListItem button className={classes.nested}>
@@ -347,8 +356,8 @@ class MiniDrawer extends React.Component {
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-
-          <FormRender />
+          <FormRender json={jsonData} formHeader="Add Ticket Status" />
+          <FormRender json={stateData} formHeader="Delivery Details" />
         </main>
       </div>
     );
