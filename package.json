@@ -9,6 +9,7 @@
     "react": "latest",
     "prop-types": "latest",
     "classnames": "latest",
+    "react-scripts": "2.0.3",
     "@material-ui/icons": "latest",
     "@material-ui/core": "latest"
   },
