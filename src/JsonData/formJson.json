@@ -10,7 +10,13 @@
       "variant": "outlined",
       "margin": "dense"
     },
-    "inputAdornment": {},
+    "inputAdornment": {
+      "endAdornment": {
+        "position": "end",
+        "value": "?",
+        "helptooltip": "Ticket Status  Hii Miss status you can fill here."
+      }
+    },
     "value": "",
     "validation": {
       "required": true
@@ -28,7 +34,13 @@
       "placeholder": "Enter Status Acronym",
       "margin": "dense"
     },
-    "inputAdornment": {},
+    "inputAdornment": {
+      "endAdornment": {
+        "position": "end",
+        "value": "!",
+        "helptooltip": "Acronym You have to fill the Acronym for the ticket."
+      }
+    },
     "value": "",
     "validation": {
       "required": true
@@ -60,6 +72,12 @@
       "helperText": "",
       "variant": "outlined",
       "margin": "normal"
+    },
+    "inputAdornment": {
+      "endAdornment": {
+        "position": "end",
+        "value": "#"
+      }
     },
     "value": "",
     "validation": {

@@ -6,10 +6,35 @@ import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
+import { withStyles } from "@material-ui/core/styles";
 import FormLabel from "@material-ui/core/FormLabel";
 import Typography from "@material-ui/core/Typography";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import Tooltip from "@material-ui/core/Tooltip";
+import HelpOutline from "@material-ui/icons/Help";
+
+const styles = theme => ({
+  cursor: {
+    cursor: "pointer",
+    opacity: 1
+  },
+  helpIcon: {
+    color: "#3d3f40",
+    fontSize: 21
+  },
+  htmlTooltip: {
+    backgroundColor: theme.palette.common.white,
+    color: "black",
+    maxWidth: 150,
+    fontSize: "14px",
+    boxShadow: theme.shadows[1],
+    border: "1px solid #dadde9",
+    borderRadius: "3px"
+  }
+});
+
 const InputBuilder = props => {
+  const { classes } = props;
   let inputElement = null;
   let startAdornment = null;
   let endAdornment = null;
@@ -20,10 +45,29 @@ const InputBuilder = props => {
         {props.inputAdornment.startAdornment.value}
       </InputAdornment>
     ) : null;
+
     endAdornment = props.inputAdornment.endAdornment ? (
-      <InputAdornment position={props.inputAdornment.endAdornment.position}>
-        {props.inputAdornment.endAdornment.value}
-      </InputAdornment>
+      props.inputAdornment.endAdornment.helptooltip ? (
+        <Tooltip
+          className={classes.cursor}
+          classes={{
+            tooltip: classes.htmlTooltip
+          }}
+          title={
+            <Typography color="inherit">
+              {props.inputAdornment.endAdornment.helptooltip}
+            </Typography>
+          }
+        >
+          <InputAdornment position={props.inputAdornment.endAdornment.position}>
+            <HelpOutline className={classes.helpIcon} />
+          </InputAdornment>
+        </Tooltip>
+      ) : (
+        <InputAdornment position={props.inputAdornment.endAdornment.position}>
+          {props.inputAdornment.endAdornment.value}
+        </InputAdornment>
+      )
     ) : null;
   }
   switch (props.elementType) {
@@ -120,4 +164,4 @@ const InputBuilder = props => {
   );
 };
 
-export default InputBuilder;
+export default withStyles(styles)(InputBuilder);

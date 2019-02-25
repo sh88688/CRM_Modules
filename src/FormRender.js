@@ -8,10 +8,15 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import checkValidity from "./Components/Validator";
+import checkValidity from "./Components/FieldValidator";
 import isFormValid from "./Components/FormValidSetter";
-import jsonData from "./JsonData/formJson";
+
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = {
@@ -31,25 +36,43 @@ class FormRender extends Component {
     super(props);
 
     this.state = {
-      iForm: jsonData,
+      iForm: this.props.json,
       formIsValid: false,
-      loading: false
+      loading: false,
+      alertopen: false,
+      submitJson: ""
     };
   }
+  handleAlertClose = () => {
+    this.setState({ alertopen: false });
+  };
 
   submitHandler = event => {
     event.preventDefault();
-    this.setState({ loading: true });
+
+    let didFormValid = isFormValid(this.state.iForm);
+    this.setState({
+      iForm: didFormValid.validatedForm,
+      formIsValid: didFormValid.formValidity
+    });
+
     const formData = {};
     for (let formElementIdentifier in this.state.iForm) {
       formData[formElementIdentifier] = this.state.iForm[
         formElementIdentifier
       ].value;
     }
-    setTimeout(() => {
-      console.log(formData);
-      this.setState({ loading: false });
-    }, 2000);
+    if (didFormValid.formValidity) {
+      this.setState({ loading: true });
+      setTimeout(() => {
+        console.log(formData);
+        this.setState({
+          loading: false,
+          submitJson: JSON.stringify(formData),
+          alertopen: true
+        });
+      }, 1000);
+    }
   };
 
   inputChangedHandler = (event, inputIdentifier) => {
@@ -77,9 +100,9 @@ class FormRender extends Component {
     updatediForm[inputIdentifier] = updatedFormElement;
 
     //Checking The whole form Validity
-    let formIsValid = isFormValid(updatediForm);
+    // let formIsValid = isFormValid(updatediForm);
 
-    this.setState({ iForm: updatediForm, formIsValid: formIsValid });
+    this.setState({ iForm: updatediForm });
   };
 
   render() {
@@ -97,35 +120,33 @@ class FormRender extends Component {
       });
     }
     let form = (
-      <form>
-        <Grid container spacing={24}>
-          {formElementsArray.map(formElement => (
-            <InputBuilder
-              key={formElement.id}
-              touched={formElement.config.touched}
-              errorValue={formElement.config.valid}
-              elementType={formElement.config.elementType}
-              elementConfig={formElement.config.elementConfig}
-              value={formElement.config.value}
-              inputAdornment={formElement.config.inputAdornment}
-              invalid={!formElement.config.valid}
-              shouldValidate={formElement.config.validation}
-              changed={event => this.inputChangedHandler(event, formElement.id)}
-            />
-          ))}
-        </Grid>
-      </form>
+      <Grid container spacing={24}>
+        {formElementsArray.map(formElement => (
+          <InputBuilder
+            key={formElement.id}
+            touched={formElement.config.touched}
+            errorValue={formElement.config.valid}
+            elementType={formElement.config.elementType}
+            elementConfig={formElement.config.elementConfig}
+            value={formElement.config.value}
+            inputAdornment={formElement.config.inputAdornment}
+            invalid={!formElement.config.valid}
+            shouldValidate={formElement.config.validation}
+            changed={event => this.inputChangedHandler(event, formElement.id)}
+          />
+        ))}
+      </Grid>
     );
 
     return (
-      <div style={{ backgroundColor: "#fafafa" }}>
+      <div>
         <Grid container spacing={24} justify={"center"}>
           <Grid item xs={12} lg={8}>
             <Card className={classes.card}>
               {Loader}
               <CardContent>
-                <Typography gutterBottom variant="subheading" component="h2">
-                  Add Ticket Status
+                <Typography gutterBottom variant="h3">
+                  {this.props.formHeader}
                 </Typography>
                 <Divider />
                 <br />
@@ -151,6 +172,20 @@ class FormRender extends Component {
             </Card>
           </Grid>
         </Grid>
+
+        <Dialog
+          open={this.state.alertopen}
+          onClose={this.handleAlertClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogContent>{this.state.submitJson}</DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleAlertClose} color="primary">
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     );
   }

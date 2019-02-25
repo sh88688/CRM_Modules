@@ -154,6 +154,14 @@
         {
           "value": "cheapest",
           "displayValue": "Cheapest"
+        },
+        {
+          "value": "standard",
+          "displayValue": "Standard"
+        },
+        {
+          "value": "premium",
+          "displayValue": "Premium"
         }
       ],
       "configs": {
