@@ -43,7 +43,7 @@
     },
     "value": "",
     "validation": {
-      "required": true
+      "required": false
     },
     "valid": false,
     "touched": false
@@ -59,7 +59,7 @@
     },
     "value": "",
     "validation": {
-      "required": true
+      "required": false
     },
     "valid": false,
     "touched": false
