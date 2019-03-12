@@ -21,7 +21,7 @@ import { withStyles } from "@material-ui/core/styles";
 
 const styles = {
   button: {
-    fontSize: "11px",
+    fontSize: "10px",
     fontWeight: "500"
   },
   cardActions: {
@@ -145,7 +145,7 @@ class FormRender extends Component {
             <Card className={classes.card}>
               {Loader}
               <CardContent>
-                <Typography gutterBottom variant="h3">
+                <Typography gutterBottom variant="h6">
                   {this.props.formHeader}
                 </Typography>
                 <Divider />
